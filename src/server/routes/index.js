@@ -14,11 +14,12 @@ router.get('/test', function(req, res) {
 router.post('/scrypt', function(req, res) {
   var scrypt = new Scrypt();
   scrypt.type = "Test!!!";
-  scrypt.save(function(err, res) {
+  scrypt.save(function(err, data) {
     if (err) {
-      console.log("Something went wrong: ", err);
+      throw err;
     } else {
-      console.log("Save worked", res);
+      console.log("Save worked", data);
+      res.json(data);
     }
   });
 });
