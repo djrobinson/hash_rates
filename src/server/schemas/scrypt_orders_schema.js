@@ -4,10 +4,10 @@ var Schema = mongoose.Schema;
 var scryptOrdersSchema = new Schema({
   "created_at" : Number,
   "type": String,
+  "cost_for_min" : Number,
   "high" : Number,
-  "low" : Number,
   "cost_for_all" : Number,
-  "low" : Number,
+  "speed_utilized": Number,
   "orders" : []
 });
 
