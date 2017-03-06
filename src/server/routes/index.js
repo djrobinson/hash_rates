@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var Scrypt = require('../schemas/scrypt_orders_schema');
+var Order = require('../schemas/orders_schema');
 
 router.get('/test', function(req, res) {
   res.json({
@@ -9,16 +9,17 @@ router.get('/test', function(req, res) {
   });
 });
 
-router.post('/scrypt', function(req, res) {
+router.post('/orders', function(req, res) {
   console.log("reqqqq", req.body);
-  var scrypt = new Scrypt();
-  scrypt.createdAt = Date.now();
-  scrypt.type = req.body.type;
-  scrypt.high = req.body.high;
-  scrypt.low = req.body.low;
-  scrypt.cost_for_all = req.body.cost_for_all;
-  scrypt.orders = req.body.orders;
-  scrypt.save(function(err, data) {
+  var order = new Order();
+  order.created_at = Date.now();
+  order.type = req.body.type;
+  order.high = req.body.high;
+  order.speed_utilized = req.body.speed_utilized;
+  order.cost_for_min = req.body.cost_for_min;
+  order.cost_for_all = req.body.cost_for_all;
+  order.orders = req.body.orders;
+  order.save(function(err, data) {
     if (err) {
       throw err;
     } else {
@@ -27,5 +28,11 @@ router.post('/scrypt', function(req, res) {
     }
   });
 });
+
+router.get('/orders', function(req, res) {
+  Order.find({}, function(err, data) {
+    res.json(data);
+  })
+})
 
 module.exports = router;

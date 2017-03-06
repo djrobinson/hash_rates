@@ -29,7 +29,7 @@ function saveData(orderSet) {
   console.log('Order Set: ', typeof(orderSet));
   var options = {
     host: 'localhost',
-    path: '/scrypt',
+    path: '/orders',
     port: 3000,
     //This is the only line that is new. `headers` is an object with the headers to request
     method: 'POST',
@@ -81,7 +81,6 @@ function findMainStats(result) {
     'high': 0
 
   });
-  retObj.created_at = Date.now();
   retObj.type = "scrypt";
   return retObj;
 }

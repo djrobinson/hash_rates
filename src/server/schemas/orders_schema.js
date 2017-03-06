@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var scryptOrdersSchema = new Schema({
+var ordersSchema = new Schema({
   "created_at" : Number,
   "type": String,
   "cost_for_min" : Number,
@@ -11,6 +11,6 @@ var scryptOrdersSchema = new Schema({
   "orders" : []
 });
 
-var scryptOrders = mongoose.model('scryptOrders', scryptOrdersSchema);
+var orders = mongoose.model('orders', ordersSchema);
 
-module.exports = scryptOrders;
+module.exports = orders;
