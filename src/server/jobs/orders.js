@@ -95,32 +95,21 @@ function findMainStats(result) {
   var type = '';
   const retObj = result.reduce(function(acc, order) {
     acc.speed_utilized += parseFloat(order.accepted_speed);
-    var orderspeed = parseFloat(order.accepted_speed);
-    var orderprice = parseFloat(order.price);
     type = parseInt(order.algo);
-    if (orderspeed > 0) {
-      acc.cost_for_min = orderprice;
-    }
-    if (orderprice > acc.high) {
-      acc.high = orderprice;
-    }
     return acc;
   }, {
-    'speed_utilized': 0,
-    'cost_for_min': 0,
-    'cost_for_all': 0,
-    'high': 0,
+    'speed_utilized': 0
   });
   console.log('Heres the algo type', algos[type]);
   retObj.type = algos[type];
   return retObj;
 }
 
-function kickoffOrderRetrieval(algos) {
+function kickoffOrderRetrieval() {
   console.log('aksjdf', algos[0]);
   algos.forEach((algo, i) => {
     orderPrices(i);
   })
 }
 
-kickoffOrderRetrieval(algos);
+setInterval(kickoffOrderRetrieval, 1000);

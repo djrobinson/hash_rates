@@ -14,10 +14,6 @@ router.post('/orders', function(req, res) {
   var order = new Order();
   order.created_at = Date.now();
   order.type = req.body.type;
-  order.high = req.body.high;
-  order.speed_utilized = req.body.speed_utilized;
-  order.cost_for_min = req.body.cost_for_min;
-  order.cost_for_all = req.body.cost_for_all;
   order.orders = req.body.orders;
   order.save(function(err, data) {
     if (err) {

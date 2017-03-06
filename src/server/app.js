@@ -61,5 +61,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
+//Starts BAtches
+require('./jobs/orders');
 
 module.exports = app;
