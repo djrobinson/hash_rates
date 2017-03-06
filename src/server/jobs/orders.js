@@ -1,11 +1,40 @@
 var https = require('https');
 var http = require('http');
 
-var url = 'https://www.nicehash.com/api?method=orders.get&location=1&algo=0';
+var url = 'https://www.nicehash.com/api?method=orders.get&location=1&algo=';
 
+var algos = [
+  "Scrypt"
+  ,"SHA256"
+  ,"ScryptNf"
+  ,"X11"
+  ,"X13"
+  ,"Keccak"
+  ,"X15"
+  ,"Nist5"
+  ,"NeoScrypt"
+  ,"Lyra2RE"
+   ,"WhirlpoolX"
+   ,"Qubit"
+   ,"Quark"
+   ,"Axiom"
+   ,"Lyra2REv2"
+   ,"ScryptJaneNf16"
+   ,"Blake256r8"
+   ,"Blake256r14"
+   ,"Blake256r8vnl"
+   ,"Hodl"
+   ,"DaggerHashimoto"
+   ,"Decred"
+   ,"CryptoNight"
+   ,"Lbry"
+   ,"Equihash"
+   ,"Pascal"
+   ,"X11Gost"
+]
 
-function scryptPrices() {
-  https.get(url, function(res) {
+function orderPrices(index) {
+  https.get(url + index, function(res) {
     res.setEncoding('utf8');
     var data = '';
     res.on('data', function (chunk) {
@@ -50,7 +79,7 @@ function saveData(orderSet) {
     });
 
     response.on('end', function () {
-      console.log('End???', str);
+      console.log('End???');
     });
   }
 
@@ -63,10 +92,12 @@ function saveData(orderSet) {
 }
 
 function findMainStats(result) {
+  var type = '';
   const retObj = result.reduce(function(acc, order) {
     acc.speed_utilized += parseFloat(order.accepted_speed);
     var orderspeed = parseFloat(order.accepted_speed);
     var orderprice = parseFloat(order.price);
+    type = parseInt(order.algo);
     if (orderspeed > 0) {
       acc.cost_for_min = orderprice;
     }
@@ -78,11 +109,18 @@ function findMainStats(result) {
     'speed_utilized': 0,
     'cost_for_min': 0,
     'cost_for_all': 0,
-    'high': 0
-
+    'high': 0,
   });
-  retObj.type = "scrypt";
+  console.log('Heres the algo type', algos[type]);
+  retObj.type = algos[type];
   return retObj;
 }
 
-setInterval(scryptPrices, 1000);
+function kickoffOrderRetrieval(algos) {
+  console.log('aksjdf', algos[0]);
+  algos.forEach((algo, i) => {
+    orderPrices(i);
+  })
+}
+
+kickoffOrderRetrieval(algos);

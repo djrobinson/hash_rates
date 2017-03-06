@@ -32,7 +32,13 @@ router.post('/orders', function(req, res) {
 router.get('/orders', function(req, res) {
   Order.find({}, function(err, data) {
     res.json(data);
-  })
+  });
+});
+
+router.get('/orders/:type', function(req, res) {
+  Order.find({type: req.params.type}, function(err, data) {
+    res.json(data);
+  });
 })
 
 module.exports = router;
