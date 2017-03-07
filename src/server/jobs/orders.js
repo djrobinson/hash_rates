@@ -42,8 +42,6 @@ function orderPrices(index) {
     });
     res.on('end', function() {
       const result = JSON.parse(data).result.orders;
-
-      console.log('Results: ', result);
       const orderSet = findMainStats(result);
       orderSet.orders = result;
 
@@ -100,13 +98,11 @@ function findMainStats(result) {
   }, {
     'speed_utilized': 0
   });
-  console.log('Heres the algo type', algos[type]);
   retObj.type = algos[type];
   return retObj;
 }
 
 function kickoffOrderRetrieval() {
-  console.log('aksjdf', algos[0]);
   algos.forEach((algo, i) => {
     orderPrices(i);
   })

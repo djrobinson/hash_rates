@@ -1,4 +1,6 @@
 // *** main dependencies *** //
+require('dotenv').config()
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -11,7 +13,7 @@ var bodyParser = require('body-parser');
 // *** routes *** //
 var routes = require('./routes/index.js');
 
-mongoose.connect('mongodb://localhost/nice_hash');
+mongoose.connect(process.env.AWS_MONGO);
 
 // *** express instance *** //
 var app = express();
@@ -62,6 +64,6 @@ app.use(function(err, req, res, next) {
 });
 
 //Starts BAtches
-require('./jobs/orders');
+// require('./jobs/orders');
 
 module.exports = app;

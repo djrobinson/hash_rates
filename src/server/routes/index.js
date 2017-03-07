@@ -10,7 +10,6 @@ router.get('/test', function(req, res) {
 });
 
 router.post('/orders', function(req, res) {
-  console.log("reqqqq", req.body);
   var order = new Order();
   order.created_at = Date.now();
   order.type = req.body.type;
@@ -19,7 +18,6 @@ router.post('/orders', function(req, res) {
     if (err) {
       throw err;
     } else {
-      console.log("Save worked", data);
       res.json(data);
     }
   });
