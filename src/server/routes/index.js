@@ -35,4 +35,15 @@ router.get('/orders/:type', function(req, res) {
   });
 })
 
+router.get('/orders/:type/:start_date/:end_date', function(req, res) {
+  Order.find({type: req.params.type,
+              created_at: {
+                $gte: req.params.start_date,
+                $lt: req.params.end_date
+              }
+            }, function(err, data) {
+    res.json(data);
+  });
+})
+
 module.exports = router;
